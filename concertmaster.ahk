@@ -28,7 +28,7 @@ global pendingReleases := []
     Sleep(1000)
 
     ; --- Load MIDI JSON ---
-    rawText := FileRead("music/dandelions.json")
+    rawText := FileRead("music/unravel2.json")
     midiData := Jxon_Load(&rawText)
     notes := midiData.Get("tracks")[1].Get("notes")
     ppq := midiData.Get("header").Get("ppq")
