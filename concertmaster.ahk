@@ -18,17 +18,21 @@ global pendingReleases := []
         return
     }
 
-    ; Activate Genshin Impact
-    WinActivate()
-    WinSetAlwaysOnTop(1, "ahk_exe GenshinImpact.exe")
-    Sleep(100)
-    WinSetAlwaysOnTop(0, "ahk_exe GenshinImpact.exe")
-    Sleep(1500)
-    SendInput("{z}")
-    Sleep(1000)
+    song := InputBox("Enter song name (without .json):", "Genshin Impact Concertmaster")
+
+    if NOT WinActive("ahk_exe GenshinImpact.exe") {
+        ; Activate Genshin Impact
+        WinActivate()
+        WinSetAlwaysOnTop(1, "ahk_exe GenshinImpact.exe")
+        Sleep(100)
+        WinSetAlwaysOnTop(0, "ahk_exe GenshinImpact.exe")
+        Sleep(1500)
+        SendInput("{z}")
+        Sleep(1000)
+    }
 
     ; --- Load MIDI JSON ---
-    rawText := FileRead("music/unravel2.json")
+    rawText := FileRead("music/" song.Value ".json")
     midiData := Jxon_Load(&rawText)
     notes := midiData.Get("tracks")[1].Get("notes")
     ppq := midiData.Get("header").Get("ppq")
